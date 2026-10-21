@@ -1,4 +1,5 @@
 import geopandas as gpd
+from pathlib import Path
 
 FICHIER_POP = "data/statistik-bevoelkerung_haushalte_2025_2056.gpkg"
 COUCHE_COMMUNES = "statistik-bevoelkerung_haushalte_2025_gmde_2056"
@@ -40,3 +41,16 @@ resultat = croise.groupby("KLASSE")["BBTOT"].sum()
 print(resultat)
 print("Total :", resultat.sum())
 print((resultat / resultat.sum() * 100).round(1))
+
+# 10. On sauvegarde les resultats
+Path("resultats").mkdir(exist_ok=True)
+
+tableau = resultat.reset_index()
+tableau.columns = ["classe", "habitants"]
+tableau["part_pourcent"] = (tableau["habitants"] / tableau["habitants"].sum() * 100).round(1)
+tableau.to_csv("resultats/habitants_par_classe.csv", index=False)
+
+# Pour la carte : on remet les carres entiers, pas seulement leur centre
+carte = hectares_lausanne.copy()
+carte["KLASSE"] = croise["KLASSE"]
+carte[["RELI", "BBTOT", "KLASSE", "geometry"]].to_file("resultats/hectares_lausanne.gpkg", driver="GPKG")
