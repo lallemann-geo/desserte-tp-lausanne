@@ -51,6 +51,12 @@ Les résultats sont écrits dans le dossier `resultats` (un tableau CSV et une c
 - `02_population_lausanne.py` : analyse principale
 - `resultats/` : résultats produits par l’analyse
 
+## Pistes d’amélioration (non réalisées)
+
+- Comparer la part des 65 ans et plus selon la classe de desserte
+- Tester une autre règle de calcul (répartir chaque carré selon sa surface dans chaque zone)
+- Mesurer la pente des carrés avec le modèle de terrain de swisstopo
+
 ## Auteur
 
 Lucas Allemann. Données : Office fédéral du développement territorial et Office fédéral de la statistique.
